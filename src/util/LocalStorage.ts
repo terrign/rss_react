@@ -12,6 +12,10 @@ class LocalStorageService {
   get(key: string) {
     return this.store.getItem(key);
   }
+
+  has(key: string) {
+    return !!this.store.getItem(key);
+  }
 }
 
 const LocalStorage = new LocalStorageService();

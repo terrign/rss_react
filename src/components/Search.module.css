@@ -1,0 +1,33 @@
+.searchForm {
+  background-color: black;
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.searchForm * {
+  box-sizing: border-box;
+  height: 30px;
+  border: 1px solid black;
+}
+
+.searchForm > input[type='text'] {
+  display: block;
+  width: 70%;
+  flex: 1 1 auto;
+  min-width: 200px;
+  background-color: rgb(180, 224, 224);
+  border-right: none;
+}
+
+.searchForm > button {
+  display: block;
+  font-weight: 700;
+}
+
+.searchForm > button:hover {
+  display: block;
+  background-color: rgb(180, 224, 224);
+  cursor: pointer;
+}
