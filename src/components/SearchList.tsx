@@ -21,10 +21,11 @@ class SearchList extends React.Component<SearchListProps> {
       return <p>Nothing found</p>;
     }
     return this.props.items.map((a) => (
-      <div key={a.name}>
+      <div key={a.name} className={styles.listItem}>
         <h3>Name: {a.name}</h3>
         <h4>Model: {a.model}</h4>
-        <p>Description: {a.cargo_capacity}</p>
+        <p>Class: {a.starship_class}</p>
+        <p>Cargo capacity: {a.cargo_capacity}</p>
       </div>
     ));
   }

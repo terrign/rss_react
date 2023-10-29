@@ -4,6 +4,7 @@ import { Starship } from '../models/apiTypes.ts';
 import SearchList from './SearchList.tsx';
 import LocalStorage from '../util/LocalStorage.ts';
 import styles from './Search.module.css';
+import ErrorThrower from './ErrorThrower.tsx';
 
 class Search extends React.Component<unknown, { items: Starship[]; loading: boolean }> {
   inputRef: React.RefObject<HTMLInputElement>;
@@ -41,6 +42,7 @@ class Search extends React.Component<unknown, { items: Starship[]; loading: bool
           <button type="button" onClick={this.onSearch.bind(this)}>
             Search
           </button>
+          <ErrorThrower />
         </form>
         <SearchList items={this.state.items} loading={this.state.loading} />
       </>
