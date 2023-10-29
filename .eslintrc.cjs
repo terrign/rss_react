@@ -25,6 +25,12 @@ module.exports = {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
     'no-use-before-define': 'off',
+    'react/jsx-one-expression-per-line': 'off',
+    'react/function-component-definition': 'off',
+    'operator-linebreak': 'off',
+    'no-useless-constructor': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
   parserOptions: {
     project: './tsconfig.json',
