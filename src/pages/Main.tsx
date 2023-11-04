@@ -1,9 +1,4 @@
-import React from 'react';
+import Search from '../components/Search';
 
-class MainPage extends React.Component {
-  render() {
-    return <div>Main</div>;
-  }
-}
-
+const MainPage = () => <Search />;
 export default MainPage;

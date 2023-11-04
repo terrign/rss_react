@@ -1,25 +1,20 @@
-import React from 'react';
+import { useState } from 'react';
 
-class ErrorThrower extends React.Component<unknown, { error: boolean }> {
-  constructor(props = {}) {
-    super(props);
-    this.state = { error: false };
-  }
+const ErrorThrower = () => {
+  const [error, setError] = useState<boolean>(false);
 
-  throwError = () => {
-    throw new Error('Test error');
+  const throwError = () => {
+    throw new Error('Test Error');
   };
 
-  render() {
-    return (
-      <>
-        <button type="button" onClick={() => this.setState({ error: true })}>
-          Error
-        </button>
-        {this.state.error && this.throwError()}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <button type="button" onClick={() => setError(true)}>
+        Error
+      </button>
+      {error && throwError()}
+    </>
+  );
+};
 
 export default ErrorThrower;

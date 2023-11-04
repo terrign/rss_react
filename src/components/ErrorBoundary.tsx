@@ -1,4 +1,4 @@
-import React, { ErrorInfo } from 'react';
+import React from 'react';
 
 class ErrorBoundary extends React.Component<React.PropsWithChildren, { hasError: boolean }> {
   constructor(props: React.PropsWithChildren) {
@@ -8,10 +8,6 @@ class ErrorBoundary extends React.Component<React.PropsWithChildren, { hasError:
 
   static getDerivedStateFromError() {
     return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.log(error, errorInfo.componentStack);
   }
 
   render() {

@@ -1,14 +1,9 @@
-import React from 'react';
 import './App.css';
-import Search from './components/Search.tsx';
+import Search from './components/Search';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div style={{ width: '70%', margin: '0 auto' }}>
-        <Search />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div style={{ width: '70%', margin: '0 auto' }}>
+    <Search />
+  </div>
+);
 export default App;

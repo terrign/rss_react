@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import api from '../api/ApiClient.ts';
 import { Starship } from '../models/apiTypes.ts';
 import SearchList from './SearchList.tsx';
@@ -6,48 +6,43 @@ import LocalStorage from '../util/LocalStorage.ts';
 import styles from './Search.module.css';
 import ErrorThrower from './ErrorThrower.tsx';
 
-class Search extends React.Component<unknown, { items: Starship[]; loading: boolean }> {
-  inputRef: React.RefObject<HTMLInputElement>;
+const Search = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [items, setItems] = useState<Starship[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  constructor(props = {}) {
-    super(props);
-    this.state = { items: [], loading: false };
-    this.inputRef = React.createRef();
-  }
+  const onSearch = async () => {
+    setIsLoading(true);
+    const res = await api.getStarships(inputRef.current?.value);
+    setItems(res.results);
+    setIsLoading(false);
+    LocalStorage.set('searchTerm', inputRef.current?.value as string);
+  };
 
-  componentDidMount(): void {
-    if (LocalStorage.has('searchTerm')) {
-      this.inputRef.current!.value = LocalStorage.get('searchTerm') as string;
-    }
-    this.onSearch();
-  }
-
-  private async onSearch() {
-    this.setState((prev) => ({ ...prev, loading: true }));
-    const res = await api.getStarships(this.inputRef.current?.value);
-    this.setState({ items: res.results, loading: false });
-    LocalStorage.set('searchTerm', this.inputRef.current?.value as string);
-  }
-
-  private async onSubmit(event: React.SyntheticEvent) {
+  const onSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-    this.onSearch();
-  }
+    onSearch();
+  };
 
-  render() {
-    return (
-      <>
-        <form onSubmit={this.onSubmit.bind(this)} className={styles.searchForm}>
-          <input type="text" ref={this.inputRef} />
-          <button type="button" onClick={this.onSearch.bind(this)}>
-            Search
-          </button>
-          <ErrorThrower />
-        </form>
-        <SearchList items={this.state.items} loading={this.state.loading} />
-      </>
-    );
-  }
-}
+  useEffect(() => {
+    if (LocalStorage.has('searchTerm')) {
+      inputRef.current!.value = LocalStorage.get('searchTerm') as string;
+    }
+    onSearch();
+  }, []);
+
+  return (
+    <>
+      <form onSubmit={onSubmit} className={styles.searchForm}>
+        <input type="text" ref={inputRef} />
+        <button type="button" onClick={onSearch}>
+          Search
+        </button>
+        <ErrorThrower />
+      </form>
+      <SearchList items={items} loading={isLoading} />
+    </>
+  );
+};
 
 export default Search;
