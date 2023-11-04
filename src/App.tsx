@@ -5,7 +5,7 @@ import Search from './components/Search.tsx';
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div style={{ width: '70%', margin: '0 auto' }}>
         <Search />
       </div>
     );

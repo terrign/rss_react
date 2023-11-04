@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format:fix": "prettier ./src --write"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -38,7 +39,7 @@
   },
   "lint-staged": {
     "*.{js,css,ts,tsx,jsx}": [
-      "prettier --write",
+      "prettier ./src --write",
       "eslint --fix"
     ]
   }
