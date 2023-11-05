@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './ErrorThrower.module.css';
 
 const ErrorThrower = () => {
   const [error, setError] = useState<boolean>(false);
@@ -9,7 +10,7 @@ const ErrorThrower = () => {
 
   return (
     <>
-      <button type="button" onClick={() => setError(true)}>
+      <button type="button" onClick={() => setError(true)} className={styles.errorButton}>
         Error
       </button>
       {error && throwError()}

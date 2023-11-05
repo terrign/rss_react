@@ -1,4 +1,4 @@
-import { LoaderFunction } from 'react-router-dom';
+import { LoaderFunction, redirect } from 'react-router-dom';
 import api from '../../api/ApiClient';
 import { ShipsResponse } from '../../models/apiTypes';
 
@@ -7,9 +7,13 @@ export interface SearchParams {
   search: string;
 }
 
-const mainLoader: LoaderFunction = async ({ request }): Promise<ShipsResponse> => {
-  const url = Object.fromEntries(new URL(request.url).searchParams);
-  return api.getStarships(new URLSearchParams(url));
+const mainLoader: LoaderFunction = async ({ request }): Promise<ShipsResponse | Response> => {
+  const { searchParams } = new URL(request.url);
+  if (!searchParams.has('page')) {
+    searchParams.set('page', '1');
+    return redirect(`/?${searchParams}`);
+  }
+  return api.getStarships(searchParams);
 };
 
 export default mainLoader;

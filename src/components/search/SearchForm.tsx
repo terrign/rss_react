@@ -1,43 +1,30 @@
-import { useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import ErrorThrower from '../ErrorThrower';
 import LocalStorage from '../../util/LocalStorage';
 import styles from './Search.module.css';
 
 const SearchForm = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [, setSearchParams] = useSearchParams();
+  const nav = useNavigate();
+  const [inputValue, setInputValue] = useState<string>(LocalStorage.get('searchTerm') as string);
 
-  const onSearch = () => {
-    setSearchParams((prev) => {
-      const newValue = inputRef.current?.value as string;
-      if (newValue) {
-        prev.set('search', newValue);
-      } else {
-        prev.delete('search');
-      }
-      return prev;
-    });
-    LocalStorage.set('searchTerm', inputRef.current?.value as string);
-  };
-
-  const onSubmit = async (event: React.SyntheticEvent) => {
+  const onSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    onSearch();
+    nav(`/?search=${inputValue}&page=1`);
   };
 
-  useEffect(() => {
-    if (LocalStorage.has('searchTerm')) {
-      inputRef.current!.value = LocalStorage.get('searchTerm') as string;
-    }
-  }, []);
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target as HTMLInputElement;
+    setInputValue(value);
+    LocalStorage.set('searchTerm', value);
+  };
 
   return (
     <form onSubmit={onSubmit} className={styles.searchForm}>
-      <input type="text" ref={inputRef} />
-      <button type="button" onClick={onSearch}>
+      <input type="text" value={inputValue} onChange={onChange} />
+      <Link to={`/?search=${inputValue}&page=1`} className={styles.searchButton}>
         Search
-      </button>
+      </Link>
       <ErrorThrower />
     </form>
   );
