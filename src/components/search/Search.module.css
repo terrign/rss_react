@@ -16,7 +16,6 @@
   width: 70%;
   flex: 1 1 auto;
   min-width: 200px;
-  background-color: rgb(180, 224, 224);
   border-right: none;
 }
 
@@ -31,6 +30,6 @@
 
 .searchForm > button:hover {
   display: block;
-  background-color: rgb(180, 224, 224);
+  background-color: rgb(87, 121, 121);
   cursor: pointer;
 }

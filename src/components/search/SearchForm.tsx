@@ -6,7 +6,7 @@ import styles from './Search.module.css';
 
 const SearchForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const onSearch = () => {
     setSearchParams((prev) => {
@@ -25,7 +25,7 @@ const SearchForm = () => {
     if (LocalStorage.has('searchTerm')) {
       inputRef.current!.value = LocalStorage.get('searchTerm') as string;
     }
-  }, [searchParams]);
+  }, []);
 
   return (
     <form onSubmit={onSubmit} className={styles.searchForm}>

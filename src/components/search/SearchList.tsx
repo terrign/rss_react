@@ -1,16 +1,15 @@
-import { useLoaderData, useNavigation } from 'react-router-dom';
+import { Link, useLoaderData, useNavigation, useSearchParams } from 'react-router-dom';
 import { ShipsResponse } from '../../models/apiTypes.ts';
 import styles from './SearchList.module.css';
-import Loader from '../Loader.tsx';
+
+import getIdFromUrl from '../../helpers/getIdFromUrl.ts';
 
 export const SearchList = () => {
-  const nav = useNavigation();
   const data = useLoaderData() as ShipsResponse;
+  const [search] = useSearchParams();
+  const nav = useNavigation();
 
   const renderItems = () => {
-    if (nav.state === 'loading') {
-      return <Loader />;
-    }
     if (nav.state === 'idle' && (data.results?.length ?? 0) === 0) {
       return <p>Nothing found</p>;
     }
@@ -18,8 +17,12 @@ export const SearchList = () => {
       <div key={a.name} className={styles.listItem}>
         <h3>Name: {a.name}</h3>
         <h4>Model: {a.model}</h4>
-        <p>Class: {a.starship_class}</p>
-        <p>Cargo capacity: {a.cargo_capacity}</p>
+        <Link
+          to={{ pathname: `details/${getIdFromUrl(a.url)}`, search: search.toString() }}
+          style={{ marginTop: 'auto' }}
+        >
+          See details
+        </Link>
       </div>
     ));
   };

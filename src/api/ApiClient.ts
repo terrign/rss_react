@@ -12,11 +12,19 @@ class ApiClient {
     try {
       result = await fetch(this.getURLString('starships', search));
     } catch (e) {
-      const { message } = e as Error;
       result = null;
-      console.error(message);
     }
     return result?.json();
+  }
+
+  async getShipById(id: string) {
+    let res: Response | null;
+    try {
+      res = await fetch(`${this.baseURL}/starships/${id}`);
+    } catch (e) {
+      res = null;
+    }
+    return res?.json();
   }
 }
 
