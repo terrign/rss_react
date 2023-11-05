@@ -1,21 +1,20 @@
-import { Starship } from '../models/apiTypes.ts';
+import { useLoaderData, useNavigation } from 'react-router-dom';
+import { ShipsResponse } from '../../models/apiTypes.ts';
 import styles from './SearchList.module.css';
-import Loader from './Loader.tsx';
+import Loader from '../Loader.tsx';
 
-interface SearchListProps {
-  items: Starship[];
-  loading: boolean;
-}
+export const SearchList = () => {
+  const nav = useNavigation();
+  const data = useLoaderData() as ShipsResponse;
 
-const SearchList = ({ items, loading }: SearchListProps) => {
   const renderItems = () => {
-    if (loading) {
+    if (nav.state === 'loading') {
       return <Loader />;
     }
-    if (!loading && items.length === 0) {
+    if (nav.state === 'idle' && (data.results?.length ?? 0) === 0) {
       return <p>Nothing found</p>;
     }
-    return items.map((a) => (
+    return data.results?.map((a) => (
       <div key={a.name} className={styles.listItem}>
         <h3>Name: {a.name}</h3>
         <h4>Model: {a.model}</h4>
