@@ -10,7 +10,12 @@ const SearchForm = () => {
 
   const onSearch = () => {
     setSearchParams((prev) => {
-      prev.set('search', inputRef.current?.value as string);
+      const newValue = inputRef.current?.value as string;
+      if (newValue) {
+        prev.set('search', newValue);
+      } else {
+        prev.delete('search');
+      }
       return prev;
     });
     LocalStorage.set('searchTerm', inputRef.current?.value as string);
