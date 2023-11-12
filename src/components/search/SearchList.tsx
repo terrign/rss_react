@@ -1,19 +1,19 @@
-import { Link, useLoaderData, useNavigation, useSearchParams } from 'react-router-dom';
-import { ShipsResponse } from '../../models/apiTypes.ts';
+import { Link, useNavigation, useSearchParams } from 'react-router-dom';
 import styles from './SearchList.module.css';
 
 import getIdFromUrl from '../../helpers/getIdFromUrl.ts';
+import useSearchContext from '../../context/search/useSearchContext.tsx';
 
 export const SearchList = () => {
-  const data = useLoaderData() as ShipsResponse;
   const [search] = useSearchParams();
   const nav = useNavigation();
+  const { searchRes } = useSearchContext();
 
   const renderItems = () => {
-    if (nav.state === 'idle' && (data.results?.length ?? 0) === 0) {
+    if (nav.state === 'idle' && (searchRes?.results.length ?? 0) === 0) {
       return <p>Nothing found</p>;
     }
-    return data.results?.map((a) => (
+    return searchRes?.results.map((a) => (
       <div key={a.name} className={styles.listItem}>
         <h3>Name: {a.name}</h3>
         <h4>Model: {a.model}</h4>

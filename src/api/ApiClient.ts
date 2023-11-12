@@ -1,3 +1,5 @@
+import { ShipsResponse } from '../models/apiTypes';
+
 class ApiClient {
   private baseURL = 'https://swapi.dev/api/';
 
@@ -7,17 +9,17 @@ class ApiClient {
     return url;
   }
 
-  async getStarships(search: URLSearchParams) {
-    let result: Response | null;
+  async getStarships(search: URLSearchParams): Promise<ShipsResponse> {
+    let res: Response | null;
     try {
-      result = await fetch(this.getURLString('starships', search));
+      res = await fetch(this.getURLString('starships', search));
     } catch (e) {
-      result = null;
+      res = null;
     }
-    return result?.json();
+    return res?.json();
   }
 
-  async getShipById(id: string) {
+  async getShipById(id: string): Promise<ShipsResponse> {
     let res: Response | null;
     try {
       res = await fetch(`${this.baseURL}/starships/${id}`);

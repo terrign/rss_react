@@ -1,18 +1,11 @@
-import { useLoaderData, useSearchParams } from 'react-router-dom';
-import { ShipsResponse } from '../../models/apiTypes';
+import { useSearchParams } from 'react-router-dom';
+import useSearchContext from '../../context/search/useSearchContext';
+import styles from './Pagination.module.css';
+import getPageArrayFromItemCount from '../../helpers/getPageArrayFromItemCount';
 
-const Pagination = () => {
-  const data = useLoaderData() as ShipsResponse;
+const Pagination = ({ children }: React.PropsWithChildren) => {
   const [search, setSearch] = useSearchParams();
-
-  const getPageArray = () => {
-    const pageCount = Math.ceil(data.count / 10);
-    const pages = [];
-    for (let i = 1; i <= pageCount; i += 1) {
-      pages.push(i);
-    }
-    return pages;
-  };
+  const { searchRes } = useSearchContext();
 
   const onPageChange = (pageNum: number) => {
     setSearch((prev) => {
@@ -26,17 +19,20 @@ const Pagination = () => {
   };
 
   return (
-    <div style={{ display: 'flex', gap: 3, height: 30, marginTop: 20, cursor: 'pointer' }}>
-      {getPageArray().map((a) => (
-        <button
-          style={{ backgroundColor: isActive(a), border: 'none' }}
-          type="button"
-          key={a}
-          onClick={() => onPageChange(a)}
-        >
-          {a}
-        </button>
-      ))}
+    <div>
+      {children}
+      <div className={styles.pages}>
+        {getPageArrayFromItemCount(searchRes?.count).map((a) => (
+          <button
+            style={{ backgroundColor: isActive(a), border: 'none' }}
+            type="button"
+            key={a}
+            onClick={() => onPageChange(a)}
+          >
+            {a}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
