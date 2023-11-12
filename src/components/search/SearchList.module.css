@@ -1,9 +1,9 @@
 .list {
-  margin: 10px auto;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
   box-sizing: border-box;
-  gap: 5px;
+  gap: 10px;
 }
 
 .list > .listItem {
@@ -11,5 +11,9 @@
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-height: 250px;
   padding: 10px;
 }

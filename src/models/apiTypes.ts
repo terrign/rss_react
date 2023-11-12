@@ -112,3 +112,10 @@ export interface Vehicle {
   url: string;
   vehicle_class: string;
 }
+
+export interface ShipsResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Starship[];
+}

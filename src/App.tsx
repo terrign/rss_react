@@ -1,14 +1,11 @@
-import React from 'react';
 import './App.css';
-import Search from './components/Search.tsx';
+import { RouterProvider } from 'react-router-dom';
+import mainRoutes from './routes/mainRoutes';
+import Loader from './components/Loader';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div style={{ width: '70%', margin: '0 auto' }}>
-        <Search />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div style={{ width: '80%', margin: '0 auto' }}>
+    <RouterProvider router={mainRoutes} fallbackElement={<Loader />} />
+  </div>
+);
 export default App;
