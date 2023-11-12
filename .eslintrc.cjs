@@ -22,7 +22,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/comma-dangle': 'off',
     'import/prefer-default-export': 'off',
-    'no-console': 0,
+    'no-console': 1,
     'react/destructuring-assignment': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
@@ -36,6 +36,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
   parserOptions: {
     project: './tsconfig.json',

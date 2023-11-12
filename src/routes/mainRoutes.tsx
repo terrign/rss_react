@@ -1,11 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import MainPage from '../pages/Main';
 import ErrorPage from '../pages/ErrorPage';
 import mainLoader from './loaders/mainLoader';
 import detailsLoader from './loaders/detailsLoader';
 import Details from '../components/details/Details';
 
-const mainRoutes = createBrowserRouter([
+export const routes: RouteObject[] = [
   {
     path: '/',
     element: <MainPage />,
@@ -27,6 +27,8 @@ const mainRoutes = createBrowserRouter([
     ],
     errorElement: <ErrorPage />,
   },
-]);
+];
+
+const mainRoutes = createBrowserRouter(routes);
 
 export default mainRoutes;
