@@ -32,9 +32,11 @@ module.exports = {
     'operator-linebreak': 'off',
     'no-useless-constructor': 'off',
     'react/jsx-uses-react': 'off',
+    'react-hooks/exhaustive-deps': 'off',
     'react/react-in-jsx-scope': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
   parserOptions: {
     project: './tsconfig.json',
