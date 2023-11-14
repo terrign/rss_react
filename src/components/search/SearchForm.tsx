@@ -24,7 +24,7 @@ const SearchForm = () => {
 
   return (
     <form onSubmit={onSubmit} className={styles.searchForm}>
-      <input type="text" value={searchTerm ?? undefined} onChange={onChange} />
+      <input type="text" value={searchTerm ?? undefined} onChange={onChange} placeholder="Ship name" />
       <Link to={`/?search=${searchTerm}&page=1`} className={styles.searchButton}>
         Search
       </Link>

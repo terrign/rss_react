@@ -31,6 +31,9 @@ export const handlers = [
   http.get('https://swapi.dev/api/starships/', () => {
     return HttpResponse.json(mockRes);
   }),
+  http.get('/details/3', () => {
+    return HttpResponse.json(res);
+  }),
 ];
 
 export const server = setupServer(...handlers);
