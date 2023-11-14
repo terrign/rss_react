@@ -6,6 +6,7 @@ class ApiClient {
   private getURLString(endpoint: string, search: URLSearchParams) {
     let url = this.baseURL;
     url += search ? `${endpoint}/?${search}` : `${endpoint}`;
+    console.log(url);
     return url;
   }
 
@@ -22,7 +23,7 @@ class ApiClient {
   async getShipById(id: string): Promise<ShipsResponse> {
     let res: Response | null;
     try {
-      res = await fetch(`${this.baseURL}/starships/${id}`);
+      res = await fetch(`${this.baseURL}starships/${id}`);
     } catch (e) {
       res = null;
     }

@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "format:fix": "prettier ./src --write",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest --coverage"
   },
   "dependencies": {
     "localforage": "^1.10.0",
