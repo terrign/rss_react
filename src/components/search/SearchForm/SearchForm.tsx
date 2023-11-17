@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
-import ErrorThrower from '../ErrorThrower';
-import LocalStorage from '../../util/LocalStorage';
-import styles from './Search.module.css';
-import useSearchContext from '../../context/search/useSearchContext';
+import ErrorThrower from '../Error/ErrorThrower';
+import LocalStorage from '../../../util/LocalStorage';
+import styles from '../Search.module.css';
+import useSearchContext from '../../../context/search/useSearchContext';
 
 const SearchForm = () => {
   const nav = useNavigate();

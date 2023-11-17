@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { Starship } from '../../models/apiTypes';
-import getIdFromUrl from '../../helpers/getIdFromUrl';
-import styles from './SearchList.module.css';
+import { Starship } from '../../../models/apiTypes';
+import getIdFromUrl from '../../../helpers/getIdFromUrl';
+import styles from '../SearchList/SearchList.module.css';
 
 const SearchItem = ({ ship }: { ship: Starship }) => {
   const [search] = useSearchParams();

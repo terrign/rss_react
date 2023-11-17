@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
-import useSearchContext from '../../context/search/useSearchContext';
+import useSearchContext from '../../../context/search/useSearchContext';
 import styles from './Pagination.module.css';
-import getPageArrayFromItemCount from '../../helpers/getPageArrayFromItemCount';
+import getPageArrayFromItemCount from '../../../helpers/getPageArrayFromItemCount';
 
 const Pagination = ({ children }: React.PropsWithChildren) => {
   const [search, setSearch] = useSearchParams();

@@ -3,10 +3,10 @@ import { render, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { HttpResponse, http } from 'msw';
 import SearchList from './SearchList';
-import mainLoader from '../../routes/loaders/mainLoader';
-import SearchContextProvider from '../../context/search/Search.provider';
-import { emptyMockRes, mockRes } from '../../test/mockedResponse';
-import { server } from '../../test/setup';
+import mainLoader from '../../../routes/loaders/mainLoader';
+import SearchContextProvider from '../../../context/search/Search.provider';
+import { emptyMockRes, mockRes } from '../../../test/mockedResponse';
+import { server } from '../../../test/setup';
 
 describe('SearchList component:', () => {
   const routes = [

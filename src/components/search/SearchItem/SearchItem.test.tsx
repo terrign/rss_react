@@ -1,9 +1,9 @@
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { mockRes } from '../../test/mockedResponse';
-import { routes } from '../../routes/mainRoutes';
-import { server } from '../../test/setup';
+import { mockRes } from '../../../test/mockedResponse';
+import { routes } from '../../../routes/mainRoutes';
+import { server } from '../../../test/setup';
 
 describe('SearchItem component:', () => {
   test('Card component renders the relevant card data', async () => {

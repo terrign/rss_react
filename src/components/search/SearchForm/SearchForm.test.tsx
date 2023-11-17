@@ -2,7 +2,7 @@ import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { routes } from '../../routes/mainRoutes';
+import { routes } from '../../../routes/mainRoutes';
 
 describe('SearchForm component:', () => {
   test('Saves the entered value to the local storage', async () => {

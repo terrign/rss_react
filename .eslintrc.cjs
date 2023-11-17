@@ -37,6 +37,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'no-param-reassign': 'off',
   },
   parserOptions: {
     project: './tsconfig.json',

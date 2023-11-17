@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import SearchForm from '../components/search/SearchForm';
-import SearchList from '../components/search/SearchList';
-import Loader from '../components/Loader';
-import Pagination from '../components/search/Pagination';
+import SearchForm from '../components/search/SearchForm/SearchForm';
+import SearchList from '../components/search/SearchList/SearchList';
+import Loader from '../components/loader/Loader';
+import Pagination from '../components/search/Pagination/Pagination';
 import SearchContextProvider from '../context/search/Search.provider';
 
 const MainPage = () => {
