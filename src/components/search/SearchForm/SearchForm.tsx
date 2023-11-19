@@ -30,7 +30,7 @@ const SearchForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className={styles.searchForm}>
+    <form onSubmit={onSubmit} className={styles.searchForm} data-testid="form">
       <input type="text" value={term ?? undefined} onChange={onChange} placeholder="Character name" id="searchInput" />
       <button type="submit" className={styles.searchButton}>
         Search

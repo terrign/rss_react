@@ -2,11 +2,22 @@
   display: flex;
   gap: 3px;
   height: 30px;
-  margin-bottom: 20px;
 }
 
 .pages button {
   height: 30px;
   width: 30px;
   font-weight: 700;
+}
+
+.paginationContainer {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+@media screen and (max-width: 576px) {
+  .paginationContainer {
+    flex-direction: column;
+  }
 }

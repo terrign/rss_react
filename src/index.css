@@ -19,6 +19,10 @@ button:not(:disabled):hover {
   color: rgb(3, 18, 66);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

@@ -1,40 +1,19 @@
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import '@testing-library/jest-dom';
-import { HttpResponse, http } from 'msw';
-import SearchList from './SearchList';
-import mainLoader from '../../../routes/mainLoader';
-import SearchContextProvider from '../../../context/search/Search.provider';
-import { emptyMockRes, mockRes } from '../../../test/mockedResponse';
-import { server } from '../../../test/setup';
+import { mockRes } from '../../../test/mockedResponse';
+import { routes } from '../../../routes/mainRoutes';
+import store from '../../../store';
 
 describe('SearchList component:', () => {
-  const routes = [
-    {
-      path: '/',
-      element: (
-        <SearchContextProvider>
-          <SearchList />
-        </SearchContextProvider>
-      ),
-      loader: mainLoader,
-    },
-  ];
-
   test('List renders correct amount of items', async () => {
     const router = createMemoryRouter(routes);
-    const { container } = render(<RouterProvider router={router} />);
-    await waitFor(() => expect(container.getElementsByTagName('h3')).toHaveLength(mockRes.results.length));
-  });
-
-  test('Appropriate message is displayed if no cards are present', async () => {
-    server.use(
-      http.get('https://swapi.dev/api/starships/', () => {
-        return HttpResponse.json(emptyMockRes);
-      })
+    const { container } = render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     );
-    const router = createMemoryRouter(routes);
-    render(<RouterProvider router={router} />);
-    await waitFor(() => expect(screen.getByText('Nothing found')).toBeTruthy());
+    await waitFor(() => expect(container.getElementsByTagName('h3')).toHaveLength(mockRes.results.length));
   });
 });

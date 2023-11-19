@@ -29,6 +29,7 @@ const PagePicker = ({ totalCount }: PagePickerProps) => {
       prev.set('page', String(pageNum));
       return prev;
     });
+    window.scrollTo(0, 0);
   };
 
   const isDisabled = (value: number) => {

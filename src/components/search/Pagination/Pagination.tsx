@@ -1,5 +1,4 @@
 import { useSearchParams } from 'react-router-dom';
-import styles from './Pagination.module.css';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setitemsPerPage } from '../../../store/pagination.slice';
 import api from '../../../store/api';
@@ -8,6 +7,7 @@ import SearchList from '../SearchList/SearchList';
 import PagePicker from './PagePicker';
 import LocalStorage from '../../../util/LocalStorage';
 import usePagination from '../../../hooks/usePagination';
+import styles from './Pagination.module.css';
 
 const Pagination = () => {
   const [search, setSearch] = useSearchParams();
@@ -39,9 +39,10 @@ const Pagination = () => {
 
   return (
     <div>
-      <div className={styles.pages}>
+      <SearchList items={paginateData(data.results)} />
+      <div className={styles.paginationContainer}>
         <PagePicker totalCount={data.info.count} />
-        <label htmlFor="select" style={{ marginLeft: 20, height: 30 }}>
+        <label htmlFor="select" style={{ height: 30 }}>
           Items per Page:
           <select
             id="select"
@@ -55,7 +56,6 @@ const Pagination = () => {
           </select>
         </label>
       </div>
-      <SearchList items={paginateData(data.results)} />
     </div>
   );
 };

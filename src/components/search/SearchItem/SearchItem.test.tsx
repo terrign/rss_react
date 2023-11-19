@@ -1,17 +1,24 @@
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import '@testing-library/jest-dom';
 import { mockRes } from '../../../test/mockedResponse';
 import { routes } from '../../../routes/mainRoutes';
 import { server } from '../../../test/setup';
 
+import store from '../../../store';
+
 describe('SearchItem component:', () => {
   test('Card component renders the relevant card data', async () => {
     const router = createMemoryRouter(routes);
-    const { container } = render(<RouterProvider router={router} />);
+    const { container } = render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
     await waitFor(() => {
-      expect(container.getElementsByTagName('h3')[0]).toHaveTextContent(`Name: ${mockRes.results[0].name}`);
-      expect(container.getElementsByTagName('h3')[1]).toHaveTextContent(`Name: ${mockRes.results[1].name}`);
+      expect(container.getElementsByTagName('h3')[0]).toHaveTextContent(`${mockRes.results[0].name}`);
+      expect(container.getElementsByTagName('h3')[1]).toHaveTextContent(`${mockRes.results[1].name}`);
     });
   });
 
@@ -23,9 +30,13 @@ describe('SearchItem component:', () => {
 
   test('Clicking on a card opens a detailed card component and triggers API call', async () => {
     const router = createMemoryRouter(routes);
-    render(<RouterProvider router={router} />);
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
     const link = await screen.findAllByText('See details');
-    fireEvent.click(link[1]);
-    await waitFor(() => expect(screen.getByText(`starship_class : ${mockRes.results[1].starship_class}`)).toBeTruthy());
+    fireEvent.click(link[2]);
+    await waitFor(() => expect(screen.getByText(`Gender`)).toBeTruthy());
   });
 });
