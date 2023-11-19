@@ -1,38 +1,61 @@
 import { useSearchParams } from 'react-router-dom';
-import useSearchContext from '../../../context/search/useSearchContext';
 import styles from './Pagination.module.css';
-import getPageArrayFromItemCount from '../../../helpers/getPageArrayFromItemCount';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setitemsPerPage } from '../../../store/pagination.slice';
+import api from '../../../store/api';
+import Loader from '../../loader/Loader';
+import SearchList from '../SearchList/SearchList';
+import PagePicker from './PagePicker';
+import LocalStorage from '../../../util/LocalStorage';
+import usePagination from '../../../hooks/usePagination';
 
-const Pagination = ({ children }: React.PropsWithChildren) => {
+const Pagination = () => {
   const [search, setSearch] = useSearchParams();
-  const { searchRes } = useSearchContext();
+  const itemsPerPage = useAppSelector((state) => state.pagination.itemsPerPage);
+  const dispatch = useAppDispatch();
+  const { adaptPageParams, paginateData } = usePagination({
+    currentPage: Number(search.get('page')),
+    search,
+    itemsPerPage,
+  });
+  const { isLoading, isUninitialized, data, isError } = api.useListQuery(adaptPageParams());
 
-  const onPageChange = (pageNum: number) => {
+  const onItemsPerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setitemsPerPage(Number(event.target.value)));
+    LocalStorage.set('itemsPerPage', event.target.value);
     setSearch((prev) => {
-      prev.set('page', String(pageNum));
+      prev.set('page', '1');
       return prev;
     });
   };
 
-  const isActive = (pageNum: number) => {
-    return Number(search.get('page')) === pageNum ? '#43b362' : '#6b6b6b';
-  };
+  if (isLoading || isUninitialized) {
+    return <Loader />;
+  }
+
+  if (isError) {
+    return <p>Nothing found</p>;
+  }
 
   return (
     <div>
-      {children}
       <div className={styles.pages}>
-        {getPageArrayFromItemCount(searchRes?.count).map((a) => (
-          <button
-            style={{ backgroundColor: isActive(a), border: 'none' }}
-            type="button"
-            key={a}
-            onClick={() => onPageChange(a)}
+        <PagePicker totalCount={data.info.count} />
+        <label htmlFor="select" style={{ marginLeft: 20, height: 30 }}>
+          Items per Page:
+          <select
+            id="select"
+            defaultValue={itemsPerPage}
+            style={{ marginLeft: 5, height: 30, width: 50 }}
+            onChange={onItemsPerPageChange}
           >
-            {a}
-          </button>
-        ))}
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+          </select>
+        </label>
       </div>
+      <SearchList items={paginateData(data.results)} />
     </div>
   );
 };

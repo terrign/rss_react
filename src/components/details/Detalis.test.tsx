@@ -2,14 +2,12 @@ import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Details from './Details';
-import detailsLoader from '../../routes/loaders/detailsLoader';
 
 describe('Detailed card component:', () => {
   const routes = [
     {
       path: 'details/:shipId',
-      element: <Details />,
-      loader: detailsLoader,
+      element: <Details id={3} />,
     },
     {
       path: '/',

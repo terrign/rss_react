@@ -38,6 +38,16 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'no-param-reassign': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        labelComponents: ['CustomLabel'],
+        labelAttributes: ['inputLabel'],
+        controlComponents: ['CustomInput'],
+        assert: 'both',
+        depth: 3,
+      },
+    ],
   },
   parserOptions: {
     project: './tsconfig.json',

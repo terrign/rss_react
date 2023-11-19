@@ -1,34 +1,40 @@
-import { Link, useNavigate } from 'react-router-dom';
-import ErrorThrower from '../Error/ErrorThrower';
+import { useSearchParams } from 'react-router-dom';
 import LocalStorage from '../../../util/LocalStorage';
 import styles from '../Search.module.css';
-import useSearchContext from '../../../context/search/useSearchContext';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { searchSlice } from '../../../store/search.slice';
 
 const SearchForm = () => {
-  const nav = useNavigate();
-  const { searchTerm, setSearchTerm } = useSearchContext();
+  const dispatch = useAppDispatch();
+  const term = useAppSelector((state) => state.search.searchTerm);
+
+  const [, setSearch] = useSearchParams();
 
   const onSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    if (searchTerm) {
-      nav(`/?search=${searchTerm}&page=1`);
-    }
-    nav(`/?page=1`);
+    setSearch((prev) => {
+      if (term) {
+        prev.set('name', term);
+        prev.set('page', '1');
+        LocalStorage.set('searchTerm', term);
+      } else {
+        prev.delete('name');
+      }
+      return prev;
+    });
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target as HTMLInputElement;
-    setSearchTerm(value);
-    LocalStorage.set('searchTerm', value);
+    dispatch(searchSlice.actions.searchTerm(value));
   };
 
   return (
     <form onSubmit={onSubmit} className={styles.searchForm}>
-      <input type="text" value={searchTerm ?? undefined} onChange={onChange} placeholder="Ship name" />
-      <Link to={`/?search=${searchTerm}&page=1`} className={styles.searchButton}>
+      <input type="text" value={term ?? undefined} onChange={onChange} placeholder="Character name" id="searchInput" />
+      <button type="submit" className={styles.searchButton}>
         Search
-      </Link>
-      <ErrorThrower />
+      </button>
     </form>
   );
 };

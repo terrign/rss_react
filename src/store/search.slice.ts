@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import LocalStorage from '../util/LocalStorage';
-import { Character } from '../models/newApiTypes';
+import { Character } from '../models/apiTypes';
 
 export type SearchState = {
   searchTerm: string | null;

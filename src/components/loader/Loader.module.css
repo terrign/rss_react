@@ -1,7 +1,6 @@
 .ring {
   display: block;
-  position: fixed;
-  top: 200px;
+  top: calc(50% - 40px);
   left: calc(50% - 40px);
   width: 80px;
   height: 80px;

@@ -1,20 +1,29 @@
-import { Link, useSearchParams } from 'react-router-dom';
-import { Starship } from '../../../models/apiTypes';
-import getIdFromUrl from '../../../helpers/getIdFromUrl';
-import styles from '../SearchList/SearchList.module.css';
+import { useSearchParams } from 'react-router-dom';
+import styles from './SearchItem.module.css';
+import { Character } from '../../../models/apiTypes';
 
-const SearchItem = ({ ship }: { ship: Starship }) => {
-  const [search] = useSearchParams();
+const SearchItem = ({ character }: { character: Character }) => {
+  const [, setSearch] = useSearchParams();
+
+  const onClick = () => {
+    setSearch((prev) => {
+      prev.set('details', String(character.id));
+      return prev;
+    });
+  };
   return (
     <div className={styles.listItem}>
-      <h3>Name: {ship.name}</h3>
-      <h4>Model: {ship.model}</h4>
-      <Link
-        to={{ pathname: `details/${getIdFromUrl(ship.url)}`, search: search.toString() }}
-        style={{ marginTop: 'auto' }}
-      >
+      <img src={character.image} alt={`${character.name}`} />
+      <h3>{character.name}</h3>
+      <p>
+        <b>Origin</b>:&nbsp;{character.origin.name}
+      </p>
+      <p>
+        <b>Status:</b>&nbsp;{character.status}
+      </p>
+      <button type="button" onClick={onClick}>
         See details
-      </Link>
+      </button>
     </div>
   );
 };
