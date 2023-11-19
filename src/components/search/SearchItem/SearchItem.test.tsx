@@ -36,7 +36,7 @@ describe('SearchItem component:', () => {
       </Provider>
     );
     const link = await screen.findAllByText('See details');
-    fireEvent.click(link[2]);
+    fireEvent.click(link[1]);
     await waitFor(() => expect(screen.getByText(`Gender`)).toBeTruthy());
   });
 });
