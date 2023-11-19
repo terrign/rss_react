@@ -46,6 +46,7 @@ const Pagination = () => {
           Items per Page:
           <select
             id="select"
+            data-testid="select"
             defaultValue={itemsPerPage}
             style={{ marginLeft: 5, height: 30, width: 50 }}
             onChange={onItemsPerPageChange}

@@ -33,4 +33,17 @@ describe('SearchForm component:', () => {
     const input = await screen.findByPlaceholderText('Character name');
     expect((input as HTMLInputElement).value).toEqual('test');
   });
+
+  test('Component saves search into store', async () => {
+    const router = createMemoryRouter(routes);
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
+
+    const input = (await screen.findByPlaceholderText('Character name')) as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 'test' } });
+    expect(store.getState().search.searchTerm).toEqual('test');
+  });
 });
