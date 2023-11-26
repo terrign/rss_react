@@ -35,7 +35,7 @@ const PagePicker = ({ totalCount }: { totalCount: number }) => {
       return;
     }
     router.push(`${pathname}?${createQueryString("page", `${pageNum}`)}`);
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   };
 
   const isDisabled = (value: number) => {

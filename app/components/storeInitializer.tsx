@@ -12,8 +12,6 @@ const StoreInitializer = ({ children }: PropsWithChildren) => {
       const items = localStorage.getItem("itemsPerPage");
       const term = localStorage.getItem("searchTerm");
 
-      console.log(items, term);
-
       if (items) {
         dispatch(paginationSlice.actions.setitemsPerPage(Number(items)));
       } else {

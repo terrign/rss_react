@@ -1,21 +1,21 @@
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { setitemsPerPage } from "../../../store/pagination.slice";
-import api from "../../../store/api";
-import Loader from "../../loader/Loader";
-import SearchList from "../SearchList/SearchList";
-import PagePicker from "./PagePicker";
-import styles from "./Pagination.module.css";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { adaptPageParams, paginateData } from "../../../hooks/usePagination";
-import { CharacterSearchparams } from "../../../models/apiTypes";
-import { useCallback } from "react";
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setitemsPerPage } from '../../../store/pagination.slice';
+import api from '../../../store/api';
+import Loader from '../../loader/Loader';
+import SearchList from '../SearchList/SearchList';
+import PagePicker from './PagePicker';
+import styles from './Pagination.module.css';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { adaptPageParams, paginateData } from '../../../helpers/pagination';
+import { CharacterSearchparams } from '../../../models/apiTypes';
+import { useCallback, useEffect } from 'react';
 
 const Pagination = () => {
   const search = useSearchParams()!;
   const router = useRouter();
   const pathname = usePathname();
 
-  const currentPage = Number(search.get("page"));
+  const currentPage = Number(search.get('page'));
 
   const itemsPerPage = useAppSelector((state) => state.pagination.itemsPerPage);
   const dispatch = useAppDispatch();
@@ -33,10 +33,18 @@ const Pagination = () => {
     [search]
   );
 
+  useEffect(() => {
+    if (!currentPage) {
+      const newSearch = new URLSearchParams(search);
+      newSearch.set('page', '1');
+      router.push(`${pathname}?${newSearch}`);
+    }
+  });
+
   const onItemsPerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setitemsPerPage(Number(event.target.value)));
-    localStorage.setItem("itemsPerPage", event.target.value);
-    router.push(`${pathname}?${createQueryString("page", "1")}`);
+    localStorage.setItem('itemsPerPage', event.target.value);
+    router.push(`${pathname}?${createQueryString('page', '1')}`);
   };
 
   if (isLoading || isUninitialized) {

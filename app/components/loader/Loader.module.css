@@ -1,5 +1,6 @@
 .ring {
   display: block;
+  position: absolute;
   top: calc(50% - 40px);
   left: calc(50% - 40px);
   width: 80px;
@@ -7,7 +8,7 @@
   margin: 0 auto;
 }
 .ring:after {
-  content: ' ';
+  content: " ";
   display: block;
   width: 64px;
   height: 64px;
