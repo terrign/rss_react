@@ -1,10 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Character, CharacterSearchparams, ResData } from "../models/apiTypes";
-import { HYDRATE } from "next-redux-wrapper";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Character, CharacterSearchparams, ResData } from '../models/apiTypes';
+import { HYDRATE } from 'next-redux-wrapper';
 
 const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://rickandmortyapi.com/api/",
+    baseUrl: 'https://rickandmortyapi.com/api/',
   }),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
@@ -14,7 +14,7 @@ const api = createApi({
   endpoints: (build) => ({
     list: build.query<ResData<Character[]>, CharacterSearchparams | undefined>({
       query: (params?) => ({
-        url: "character",
+        url: 'character',
         params,
       }),
       serializeQueryArgs: ({ queryArgs }) => {

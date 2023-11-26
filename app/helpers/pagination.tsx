@@ -1,4 +1,4 @@
-import { Character, CharacterSearchparams } from "../models/apiTypes";
+import { Character, CharacterSearchparams } from '../models/apiTypes';
 
 export const DEFAULT_RESPONSE_LENGTH = 20;
 

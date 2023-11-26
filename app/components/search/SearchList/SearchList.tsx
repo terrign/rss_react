@@ -1,6 +1,6 @@
-import SearchItem from "../SearchItem/SearchItem";
-import styles from "./SearchList.module.css";
-import { Character } from "../../../models/apiTypes";
+import SearchItem from '../SearchItem/SearchItem';
+import styles from './SearchList.module.css';
+import { Character } from '../../../models/apiTypes';
 
 export const SearchList = ({ items }: { items: Character[] }) => {
   return (

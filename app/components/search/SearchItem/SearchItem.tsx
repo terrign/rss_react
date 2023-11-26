@@ -20,12 +20,11 @@ const SearchItem = ({ character }: { character: Character }) => {
         src={character.image}
         alt={`${character.name}`}
         style={{
-          width: 250,
           height: 'auto',
           margin: '0 auto',
         }}
-        width='250'
-        height='250'
+        width="250"
+        height="250"
         priority
       />
       <h3>{character.name}</h3>
@@ -35,7 +34,7 @@ const SearchItem = ({ character }: { character: Character }) => {
       <p>
         <b>Status:</b>&nbsp;{character.status}
       </p>
-      <button type='button' onClick={onClick}>
+      <button type="button" onClick={onClick}>
         See details
       </button>
     </div>

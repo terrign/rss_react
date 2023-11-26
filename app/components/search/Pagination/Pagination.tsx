@@ -1,5 +1,3 @@
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { setitemsPerPage } from '../../../store/pagination.slice';
 import api from '../../../store/api';
 import Loader from '../../loader/Loader';
 import SearchList from '../SearchList/SearchList';
@@ -8,43 +6,23 @@ import styles from './Pagination.module.css';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { adaptPageParams, paginateData } from '../../../helpers/pagination';
 import { CharacterSearchparams } from '../../../models/apiTypes';
-import { useCallback, useEffect } from 'react';
+import Cookie from '../../../util/Cookie';
 
-const Pagination = () => {
+const Pagination = ({ itemsPerPage }: { itemsPerPage: number }) => {
   const search = useSearchParams()!;
   const router = useRouter();
   const pathname = usePathname();
 
   const currentPage = Number(search.get('page'));
-
-  const itemsPerPage = useAppSelector((state) => state.pagination.itemsPerPage);
-  const dispatch = useAppDispatch();
   const { isLoading, isUninitialized, data, isError } = api.useListQuery(
     adaptPageParams(Object.fromEntries(search) as CharacterSearchparams, itemsPerPage)
   );
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(search);
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [search]
-  );
-
-  useEffect(() => {
-    if (!currentPage) {
-      const newSearch = new URLSearchParams(search);
-      newSearch.set('page', '1');
-      router.push(`${pathname}?${newSearch}`);
-    }
-  });
-
   const onItemsPerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setitemsPerPage(Number(event.target.value)));
-    localStorage.setItem('itemsPerPage', event.target.value);
-    router.push(`${pathname}?${createQueryString('page', '1')}`);
+    Cookie.set('itemsPerPage', event.target.value);
+    const newSearch = new URLSearchParams(search);
+    newSearch.set('page', '1');
+    router.push(`${pathname}?${newSearch}`);
   };
 
   if (isLoading || isUninitialized) {
@@ -59,7 +37,7 @@ const Pagination = () => {
     <div>
       <SearchList items={paginateData(data.results, itemsPerPage, currentPage)} />
       <div className={styles.paginationContainer}>
-        <PagePicker totalCount={data.info.count} />
+        <PagePicker totalCount={data.info.count} itemsPerPage={itemsPerPage} />
         <label htmlFor="select" style={{ height: 30 }}>
           Items per Page:
           <select

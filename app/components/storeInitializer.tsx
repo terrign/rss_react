@@ -1,21 +1,20 @@
-"use client";
-import { PropsWithChildren, useEffect } from "react";
-import { useAppDispatch } from "../store/hooks";
-import { paginationSlice } from "../store/pagination.slice";
-import { searchSlice } from "../store/search.slice";
+'use client';
+import { PropsWithChildren, useEffect } from 'react';
+import { useAppDispatch } from '../store/hooks';
+import { searchSlice } from '../store/search.slice';
+import Cookie from '../util/Cookie';
 
 const StoreInitializer = ({ children }: PropsWithChildren) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const items = localStorage.getItem("itemsPerPage");
-      const term = localStorage.getItem("searchTerm");
+    if (typeof window !== 'undefined') {
+      const term = localStorage.getItem('searchTerm');
 
-      if (items) {
-        dispatch(paginationSlice.actions.setitemsPerPage(Number(items)));
-      } else {
-        localStorage.setItem("itemsPerPage", "20");
+      const itemsPerPage = Cookie.get('itemsPerPage');
+
+      if (!itemsPerPage) {
+        Cookie.set('itemsPerPage', '20');
       }
 
       if (term) {

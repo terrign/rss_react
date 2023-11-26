@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import styles from "./Details.module.css";
-import api from "../../store/api";
-import Loader from "../loader/Loader";
-import Image from "next/image";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import React, { useEffect, useRef } from 'react';
+import styles from './Details.module.css';
+import api from '../../store/api';
+import Loader from '../loader/Loader';
+import Image from 'next/image';
+
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 const Details = ({ id }: { id: number }) => {
   const search = useSearchParams()!;
@@ -14,7 +15,7 @@ const Details = ({ id }: { id: number }) => {
 
   const close = () => {
     const newSearch = new URLSearchParams(search);
-    newSearch.delete("details");
+    newSearch.delete('details');
     router.push(`${pathname}?${newSearch}`);
   };
 
@@ -25,7 +26,7 @@ const Details = ({ id }: { id: number }) => {
   };
 
   const closeOnEscPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       close();
     }
   };
@@ -57,7 +58,7 @@ const Details = ({ id }: { id: number }) => {
         <button
           type="button"
           onClick={close}
-          style={{ marginLeft: "auto", width: 30, height: 30, display: "block" }}
+          style={{ marginLeft: 'auto', width: 30, height: 30, display: 'block' }}
           data-testid="closebutton"
         >
           X
@@ -67,9 +68,9 @@ const Details = ({ id }: { id: number }) => {
             src={data.image}
             alt="character"
             style={{
-              height: "auto",
-              width: "auto",
-              margin: "0 auto",
+              height: 'auto',
+              width: 'auto',
+              margin: '0 auto',
             }}
             width="250"
             height="250"
